@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내 원룸 MBTI</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- 카카오 지도 SDK (주소→좌표 변환용 Geocoder) -->
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=66783fbeecc99f2a2fe7180f9bd1bde4&libraries=services"></script>
+  <!-- 카카오 우편번호(주소검색) 서비스 -->
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <span class="logo-text">🏠 강원대 원룸 MBTI</span>
+  </header>
+
+  <main class="page-wrap">
+
+    <!-- 메인 카드 -->
+    <div class="card">
+      <h1 class="main-title">내 원룸<br>MBTI는?</h1>
+      <p class="sub-title">
+        거주자의 실제 생활 경험을 바탕으로<br>
+        32가지 항목을 분석하여 내 원룸의<br>
+        주거환경 유형을 정밀하게 진단합니다.
+      </p>
+
+      <div class="input-group" style="margin-top:24px; gap:12px;">
+
+        <!-- 주소 검색 -->
+        <label class="input-label">원룸 주소</label>
+        <div class="address-box" id="addressBox">
+          <span id="addressText" class="address-placeholder">주소를 검색해 주세요.</span>
+        </div>
+        <button class="btn-address" id="addrSearchBtn" type="button">
+          📍 주소 검색
+        </button>
+        <!-- 숨김 필드: 선택된 도로명 주소 / 좌표 -->
+        <input type="hidden" id="hiddenAddress" />
+        <input type="hidden" id="hiddenLat" />
+        <input type="hidden" id="hiddenLng" />
+
+        <!-- 건물명 입력 -->
+        <label class="input-label" for="buildingName" style="margin-top:4px;">건물명</label>
+        <input
+          type="text"
+          id="buildingName"
+          class="text-input"
+          placeholder="예) 모아빌, 한솔하우스"
+          maxlength="30"
+          autocomplete="off"
+        />
+
+        <span class="error-msg" id="formError">주소와 건물명을 모두 입력해 주세요.</span>
+        <button class="btn-primary" id="startBtn">진단 시작하기 →</button>
+      </div>
+    </div>
+
+    <!-- 안내 카드 -->
+    <div class="card">
+      <p style="font-size:0.92rem; color:var(--text-mid); line-height:1.9;">
+        ✅ 총 <strong>32개</strong> 항목, 약 <strong>5분</strong> 소요<br>
+        ✅ 결과는 <strong>16가지 MBTI 유형</strong> 중 하나로 도출<br>
+        ✅ 지도에서 <strong>주변 원룸 결과</strong>를 한눈에 비교 가능
+      </p>
+    </div>
+
+    <span class="link-text" onclick="location.href='search.html'">
+      🗺️ 원룸 지도 보기
+    </span>
+
+  </main>
+
+  <footer class="site-footer">
+    강원대학교 원룸 주거환경 정보 서비스
+  </footer>
+
+  <script>
+    let geocoder;
+    // Kakao SDK 로드 완료 후 Geocoder 초기화
+    kakao.maps.load(function () {
+      geocoder = new kakao.maps.services.Geocoder();
+    });
+
+    // 주소검색 버튼 클릭
+    document.getElementById('addrSearchBtn').addEventListener('click', function () {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          const roadAddr = data.roadAddress || data.autoRoadAddress;
+          if (!roadAddr) return;
+
+          // 도로명 주소 표시
+          document.getElementById('addressText').textContent = roadAddr;
+          document.getElementById('addressText').classList.remove('address-placeholder');
+          document.getElementById('hiddenAddress').value = roadAddr;
+
+          // 카카오 Geocoder로 좌표 변환
+          geocoder.addressSearch(roadAddr, function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              document.getElementById('hiddenLat').value = result[0].y;
+              document.getElementById('hiddenLng').value = result[0].x;
+            }
+          });
+        }
+      }).open();
+    });
+
+    // 진단 시작
+    document.getElementById('startBtn').addEventListener('click', function () {
+      const address      = document.getElementById('hiddenAddress').value.trim();
+      const lat          = document.getElementById('hiddenLat').value;
+      const lng          = document.getElementById('hiddenLng').value;
+      const buildingName = document.getElementById('buildingName').value.trim();
+      const errEl        = document.getElementById('formError');
+
+      if (!address || !buildingName) {
+        errEl.classList.add('visible');
+        return;
+      }
+      errEl.classList.remove('visible');
+
+      // sessionStorage에 저장 후 질문 페이지로 이동
+      sessionStorage.setItem('roomName', buildingName);   // 건물명 (화면 표시용)
+      sessionStorage.setItem('address',  address);
+      sessionStorage.setItem('lat',      lat);
+      sessionStorage.setItem('lng',      lng);
+      sessionStorage.removeItem('answers');
+      location.href = 'questions.html';
+    });
+
+    // 건물명 필드 엔터
+    document.getElementById('buildingName').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') document.getElementById('startBtn').click();
+    });
+  </script>
+
+</body>
+</html>
