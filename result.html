@@ -87,7 +87,8 @@
           </div>
           <!-- 바 -->
           <div class="axis-track">
-            <div class="axis-fill" data-pct="${leftPct}"></div>
+            <div class="axis-fill-left"  data-pct="${leftPct}"></div>
+            <div class="axis-fill-right" data-pct="${rightPct}"></div>
           </div>
           <!-- 오른쪽: [퍼센트] [라벨] [글자] -->
           <div class="axis-right-group">
@@ -106,7 +107,7 @@
     // 축 바 애니메이션: width=0에서 실제 값으로 transition 실행
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        document.querySelectorAll('.axis-fill[data-pct]').forEach(el => {
+        document.querySelectorAll('[data-pct]').forEach(el => {
           el.style.width = el.dataset.pct + '%';
         });
       });

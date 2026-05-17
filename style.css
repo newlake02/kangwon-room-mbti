@@ -402,16 +402,27 @@ a { text-decoration: none; color: inherit; }
 .axis-track {
   flex: 0 0 36%;
   height: 12px;
-  background: var(--mint-light);
-  border-radius: 99px;
+  background: #E5E7EB;
+  border-radius: 0;
   overflow: hidden;
+  display: flex;
 }
 
-.axis-fill {
+.axis-fill-left {
   height: 100%;
-  background: var(--mint);
-  border-radius: 99px;
+  background: #2563EB;
+  border-radius: 0;
   width: 0;
+  flex-shrink: 0;
+  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.axis-fill-right {
+  height: 100%;
+  background: #EA580C;
+  border-radius: 0;
+  width: 0;
+  flex-shrink: 0;
   transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

@@ -255,7 +255,8 @@
                 <span class="axis-pct-num   ${lWin ? 'is-winner' : ''}">${leftPct}%</span>
               </div>
               <div class="axis-track">
-                <div class="axis-fill" style="width:${leftPct}%;"></div>
+                <div class="axis-fill-left"  style="width:${leftPct}%;"></div>
+                <div class="axis-fill-right" style="width:${rightPct}%;"></div>
               </div>
               <div class="axis-right-group">
                 <span class="axis-pct-num   ${!lWin ? 'is-winner' : ''}">${rightPct}%</span>
@@ -284,7 +285,7 @@
         <div class="type-rank-list">${typeRanksHtml}</div>
 
         <!-- 축별 평균 -->
-        <p class="score-section-title" style="margin-top:20px;">축별 평균 성향</p>
+        <p class="score-section-title" style="margin-top:20px;">유형별 평균 성향</p>
         ${axisBarsHtml}
 
         <button class="btn-primary" onclick="location.href='index.html'" style="margin-top:8px;">
