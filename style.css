@@ -129,20 +129,24 @@ a { text-decoration: none; color: inherit; }
 .btn-map {
   display: block;
   width: 100%;
-  padding: 16px;
-  background: var(--white);
+  padding: 15px;
+  background: linear-gradient(135deg, #e8f9f6 0%, #d4f3ee 100%);
   color: var(--mint-dark);
-  border: 2px solid var(--mint);
+  border: 1.5px solid var(--mint-light);
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  margin-top: 10px;
   letter-spacing: -0.3px;
+  box-shadow: 0 2px 8px rgba(62, 207, 184, 0.15);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  margin-top: 10px;
 }
 
-.btn-map:hover  { background: var(--mint-bg); }
+.btn-map:hover {
+  background: linear-gradient(135deg, #d4f3ee 0%, #bfede7 100%);
+  box-shadow: 0 4px 12px rgba(62, 207, 184, 0.25);
+}
 .btn-map:active { transform: scale(0.98); }
 
 .btn-secondary {
