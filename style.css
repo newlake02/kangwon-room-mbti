@@ -572,6 +572,64 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-address:hover { background: var(--mint-bg); }
 
+/* ── 개인정보 수집 동의 ── */
+.privacy-box {
+  width: 100%;
+  background: var(--mint-bg);
+  border: 1px solid var(--mint-light);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 4px;
+}
+
+.privacy-check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.privacy-check-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  accent-color: var(--mint-dark);
+  cursor: pointer;
+}
+
+.privacy-check-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.privacy-check-label em {
+  font-style: normal;
+  color: var(--mint-dark);
+}
+
+.privacy-detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--mint-light);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.privacy-detail p {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+.privacy-detail .privacy-notice {
+  margin-top: 4px;
+  color: var(--text-light);
+  font-size: 0.75rem;
+}
+
 /* ==============================================
    search.html — 지도 & 패널 레이아웃
    ============================================== */
