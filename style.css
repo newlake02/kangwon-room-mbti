@@ -402,15 +402,15 @@ a { text-decoration: none; color: inherit; }
 .axis-track {
   flex: 0 0 36%;
   height: 12px;
-  background: #E5E7EB;
-  border-radius: 0;
+  background: var(--mint-light);
+  border-radius: 99px;
   overflow: hidden;
   display: flex;
 }
 
 .axis-fill-left {
   height: 100%;
-  background: #2563EB;
+  background: var(--mint-dark);
   border-radius: 0;
   width: 0;
   flex-shrink: 0;
@@ -419,7 +419,7 @@ a { text-decoration: none; color: inherit; }
 
 .axis-fill-right {
   height: 100%;
-  background: #EA580C;
+  background: var(--mint);
   border-radius: 0;
   width: 0;
   flex-shrink: 0;
