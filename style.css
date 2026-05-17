@@ -126,6 +126,25 @@ a { text-decoration: none; color: inherit; }
 .btn-primary:hover  { background: var(--mint-dark); }
 .btn-primary:active { transform: scale(0.98); }
 
+.btn-map {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--white);
+  color: var(--mint-dark);
+  border: 2px solid var(--mint);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 10px;
+  letter-spacing: -0.3px;
+}
+
+.btn-map:hover  { background: var(--mint-bg); }
+.btn-map:active { transform: scale(0.98); }
+
 .btn-secondary {
   display: inline-block;
   padding: 12px 24px;
