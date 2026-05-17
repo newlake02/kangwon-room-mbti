@@ -402,7 +402,7 @@ a { text-decoration: none; color: inherit; }
 .axis-track {
   flex: 0 0 36%;
   height: 12px;
-  background: var(--mint-light);
+  background: var(--mint-bg);
   border-radius: 99px;
   overflow: hidden;
   display: flex;
@@ -419,12 +419,30 @@ a { text-decoration: none; color: inherit; }
 
 .axis-fill-right {
   height: 100%;
-  background: var(--mint);
+  background: var(--mint-light);
   border-radius: 0;
   width: 0;
   flex-shrink: 0;
   transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ── 질문 페이지 홈 버튼 ── */
+.btn-home-back {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--mint-dark);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.btn-home-back:hover { background: var(--mint-bg); }
 
 /* 모바일 600px 이하: 라벨 축소 */
 @media (max-width: 400px) {

@@ -8,7 +8,8 @@
 </head>
 <body>
 
-  <header class="site-header">
+  <header class="site-header" style="position:relative;">
+    <button class="btn-home-back" onclick="confirmHome()">← 홈</button>
     <span class="logo-text">🏠 강원대 원룸 MBTI</span>
   </header>
 
@@ -137,6 +138,13 @@
         renderQuestion(current);
       }
     });
+
+    // 홈으로 돌아가기 확인
+    function confirmHome() {
+      if (confirm('홈으로 돌아가면 진행 중인 답변이 초기화됩니다.\n돌아가시겠어요?')) {
+        location.href = 'index.html';
+      }
+    }
 
     // 초기 렌더
     renderQuestion(0);
