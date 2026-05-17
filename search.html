@@ -69,12 +69,13 @@
     let fromCluster = false;  // 클러스터 → 목록 → 상세 경로 여부
 
     // ── 지도 초기화 ──────────────────────────────────────────
-    kakao.maps.load(function () {
-      // 강원대학교 중심 좌표 (줌 레벨 4)
-      const center = new kakao.maps.LatLng(37.8680, 127.7447);
-      map = new kakao.maps.Map(document.getElementById('map'), {
-        center, level: 4
-      });
+    window.onload = function () {
+      var container = document.getElementById('map');
+      var options   = {
+        center: new kakao.maps.LatLng(37.8680, 127.7447),
+        level:  4
+      };
+      map = new kakao.maps.Map(container, options);
 
       // 마커 클러스터러
       clusterer = new kakao.maps.MarkerClusterer({
@@ -109,7 +110,7 @@
         const hint = document.getElementById('mapHint');
         if (hint) hint.style.opacity = '0';
       }, 3000);
-    });
+    };
 
     // ── Firestore에서 원룸 데이터 로드 ───────────────────────
     async function loadRoomsFromFirestore() {
