@@ -54,9 +54,9 @@
   <!-- 질문 목록 및 척도 데이터 -->
   <script src="questions.js"></script>
   <script>
-    // 세션에서 원룸 이름 확인 — 없으면 처음으로
-    const roomName = sessionStorage.getItem('roomName');
-    if (!roomName) location.href = 'index.html';
+    // 세션에서 주소 확인 — 없으면 처음으로
+    const address = sessionStorage.getItem('address');
+    if (!address) location.href = 'index.html';
 
     // 답변 배열 초기화 (null = 미답변)
     // 나중에 Firebase에 중간 저장 로직 추가 예정

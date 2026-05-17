@@ -130,7 +130,7 @@
           const room   = { id: docSnap.id, ...data };
           const marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(data.lat, data.lng),
-            title:    data.buildingName
+            title:    data.address
           });
           marker._roomData = room;
 
@@ -169,8 +169,7 @@
         item.innerHTML = `
           <span class="room-list-icon">🏠</span>
           <div class="room-list-info">
-            <div class="room-list-name">${room.buildingName}</div>
-            <div class="room-list-meta">${room.address || ''}</div>
+            <div class="room-list-name">${room.address || ''}</div>
           </div>
           <span class="room-list-arrow">›</span>
         `;
@@ -183,7 +182,7 @@
 
     // ── 상세 패널 열기 ───────────────────────────────────────
     function openDetailPanel(room) {
-      document.getElementById('detailTitle').textContent = room.buildingName;
+      document.getElementById('detailTitle').textContent = room.address || '';
       document.getElementById('backBtn').style.display   = fromCluster ? 'block' : 'none';
       document.getElementById('detailContent').innerHTML = `
         <div style="text-align:center; padding:28px; color:var(--text-light);">
@@ -213,7 +212,6 @@
 
       if (responses.length === 0) {
         content.innerHTML = `
-          <p class="detail-address">📍 ${room.address || ''}</p>
           <div class="empty-state">
             <span class="empty-icon">📊</span>
             아직 응답 데이터가 없어요.
@@ -273,8 +271,6 @@
       const repInfo = TYPE_INFO[repType] || { emoji: '🏠', nickname: repType, color: 'var(--mint-dark)' };
 
       content.innerHTML = `
-        <p class="detail-address">📍 ${room.address || ''}</p>
-
         <!-- 요약 뱃지 -->
         <div class="detail-summary">
           <span class="summary-chip">총 ${responses.length}명 응답</span>

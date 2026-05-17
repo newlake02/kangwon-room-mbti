@@ -54,9 +54,9 @@
   <script src="firebase.js"></script>
   <script>
     // ── 세션 복원 ──────────────────────────────────────────
-    const roomName  = sessionStorage.getItem('roomName');
+    const address    = sessionStorage.getItem('address');
     const rawAnswers = sessionStorage.getItem('answers');
-    if (!roomName || !rawAnswers) { location.href = 'index.html'; }
+    if (!address || !rawAnswers) { location.href = 'index.html'; }
 
     const answers   = JSON.parse(rawAnswers);
     const typeName  = calculateType(answers);
@@ -64,7 +64,7 @@
     const { raw, axes } = getAxisScores(answers);
 
     // ── ① 유형 코드 + 별명 ────────────────────────────────
-    document.getElementById('resultRoomName').textContent = `📍 ${roomName}`;
+    document.getElementById('resultRoomName').textContent = `📍 ${address}`;
     document.getElementById('typeEmoji').textContent       = typeInfo.emoji;
     document.getElementById('typeCode').textContent        = typeName;
     document.getElementById('typeCode').style.color        = typeInfo.color;
@@ -115,20 +115,18 @@
     // ── Firestore 저장 ────────────────────────────────────
     (async function saveToFirestore() {
       try {
-        const address = sessionStorage.getItem('address') || '';
-        const lat     = parseFloat(sessionStorage.getItem('lat'))  || null;
-        const lng     = parseFloat(sessionStorage.getItem('lng'))  || null;
+        const lat = parseFloat(sessionStorage.getItem('lat'))  || null;
+        const lng = parseFloat(sessionStorage.getItem('lng'))  || null;
         if (!address || !lat || !lng) return; // 주소 정보 없으면 저장 생략
 
-        // 문서 ID: 도로명주소(공백제거)_건물명 예) 강원대학로1_모아빌
-        const docId = address.replace(/\s+/g, '') + '_' + roomName.replace(/\s+/g, '');
+        // 문서 ID: 도로명주소(공백 → 언더바) 예) 강원대학로_1
+        const docId = address.replace(/\s+/g, '_');
 
         // 원룸 문서 생성 or 업데이트 (merge)
         await db.collection('rooms').doc(docId).set({
-          buildingName: roomName,
-          address:      address,
-          lat:          lat,
-          lng:          lng
+          address: address,
+          lat:     lat,
+          lng:     lng
         }, { merge: true });
 
         // 응답 서브컬렉션에 추가
@@ -147,7 +145,7 @@
     // ── 공유 버튼 ─────────────────────────────────────────
     // 나중에 실제 공유 URL로 교체 예정
     document.getElementById('shareBtn').addEventListener('click', () => {
-      const text = `강원대 원룸 MBTI\n📍 ${roomName}\n${typeInfo.emoji} ${typeName} · ${typeInfo.nickname}\n${typeInfo.description}`;
+      const text = `강원대 원룸 MBTI\n📍 ${address}\n${typeInfo.emoji} ${typeName} · ${typeInfo.nickname}\n${typeInfo.description}`;
       if (navigator.share) {
         navigator.share({ title: '내 원룸 MBTI', text });
       } else if (navigator.clipboard) {

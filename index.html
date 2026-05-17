@@ -42,17 +42,6 @@
         <input type="hidden" id="hiddenLat" />
         <input type="hidden" id="hiddenLng" />
 
-        <!-- 건물명 입력 -->
-        <label class="input-label" for="buildingName" style="margin-top:4px;">건물명</label>
-        <input
-          type="text"
-          id="buildingName"
-          class="text-input"
-          placeholder="예) 모아빌, 한솔하우스"
-          maxlength="30"
-          autocomplete="off"
-        />
-
         <!-- 개인정보 수집 동의 -->
         <div class="privacy-box">
           <label class="privacy-check-row">
@@ -126,12 +115,11 @@
       const address      = document.getElementById('address').value.trim();
       const lat          = document.getElementById('hiddenLat').value;
       const lng          = document.getElementById('hiddenLng').value;
-      const buildingName = document.getElementById('buildingName').value.trim();
       const privacyCheck = document.getElementById('privacyCheck').checked;
       const errEl        = document.getElementById('formError');
 
-      if (!address || !buildingName) {
-        errEl.textContent = '주소와 건물명을 모두 입력해 주세요.';
+      if (!address) {
+        errEl.textContent = '주소를 검색해 주세요.';
         errEl.classList.add('visible');
         return;
       }
@@ -143,17 +131,11 @@
       errEl.classList.remove('visible');
 
       // sessionStorage에 저장 후 질문 페이지로 이동
-      sessionStorage.setItem('roomName', buildingName);   // 건물명 (화면 표시용)
-      sessionStorage.setItem('address',  address);
-      sessionStorage.setItem('lat',      lat);
-      sessionStorage.setItem('lng',      lng);
+      sessionStorage.setItem('address', address);
+      sessionStorage.setItem('lat',     lat);
+      sessionStorage.setItem('lng',     lng);
       sessionStorage.removeItem('answers');
       location.href = 'questions.html';
-    });
-
-    // 건물명 필드 엔터
-    document.getElementById('buildingName').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') document.getElementById('startBtn').click();
     });
   </script>
 
