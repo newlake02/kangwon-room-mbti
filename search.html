@@ -23,6 +23,12 @@
   <!-- 지도 컨테이너 -->
   <div id="map"></div>
 
+  <!-- 지도 타입 전환 버튼 -->
+  <div class="map-type-btns">
+    <button id="btnRoadmap" class="map-type-btn active" onclick="setMapType('roadmap')">일반지도</button>
+    <button id="btnHybrid"  class="map-type-btn"        onclick="setMapType('hybrid')">위성지도</button>
+  </div>
+
   <!-- 지도 위 안내 툴팁 -->
   <div class="map-hint" id="mapHint">마커를 클릭하면 원룸 정보를 볼 수 있어요</div>
 
@@ -69,6 +75,20 @@
     // ── 상태 변수 ────────────────────────────────────────────
     let map, clusterer;
     let fromCluster = false;  // 클러스터 → 목록 → 상세 경로 여부
+
+    // ── 지도 타입 전환 ────────────────────────────────────────
+    function setMapType(type) {
+      if (!map) return;
+      if (type === 'hybrid') {
+        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+        document.getElementById('btnHybrid').classList.add('active');
+        document.getElementById('btnRoadmap').classList.remove('active');
+      } else {
+        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+        document.getElementById('btnRoadmap').classList.add('active');
+        document.getElementById('btnHybrid').classList.remove('active');
+      }
+    }
 
     // ── 지도 초기화 (kakao.maps.load 콜백) ───────────────────
     function initKakaoMap() {
