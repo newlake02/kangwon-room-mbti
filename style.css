@@ -998,3 +998,39 @@ a { text-decoration: none; color: inherit; }
   font-size: 0.78rem; font-weight: 600;
   color: var(--text-light); flex-shrink: 0;
 }
+
+/* ── 대표 유형 설명 박스 ── */
+.rep-desc-box {
+  background: var(--mint-bg);
+  border: 1px solid var(--mint-light);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 8px;
+}
+
+.rep-desc-text {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rep-desc-text.expanded {
+  display: block;
+  overflow: visible;
+}
+
+.rep-desc-more {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--mint-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 0 0;
+  letter-spacing: -0.2px;
+}
