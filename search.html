@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>원룸 지도 | 내 원룸 MBTI</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- 카카오맵 SDK (autoload=false 방식) -->
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b0d26f8211aa8ac99bb7b61635eb4ce&libraries=services,clusterer&autoload=false">
-  </script>
   <!-- Firebase compat SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -134,8 +130,24 @@
       }, 3000);
     }
 
-    // ── Kakao SDK 비동기 로드 후 초기화 실행 ─────────────────
-    kakao.maps.load(initKakaoMap);
+    // ── Kakao SDK 동적 로딩 ───────────────────────────────────
+    function loadKakaoSDK() {
+      return new Promise(function (resolve) {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=9b0d26f8211aa8ac99bb7b61635eb4ce&libraries=services,clusterer&autoload=false';
+        script.onload = function () {
+          kakao.maps.load(function () { resolve(); });
+        };
+        document.head.appendChild(script);
+      });
+    }
+
+    window.addEventListener('load', function () {
+      loadKakaoSDK().then(function () {
+        initKakaoMap();
+      });
+    });
 
     // ── Firestore에서 원룸 데이터 로드 ───────────────────────
     async function loadRoomsFromFirestore() {
